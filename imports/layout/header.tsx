@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import {useRouter} from 'next/router';
 
-export const Header = () => {
+export const Header: React.FC = () => {
   const router = useRouter();
 
   const styles = {
