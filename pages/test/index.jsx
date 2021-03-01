@@ -1,4 +1,4 @@
-// import React from 'react';
+import React from 'react';
 // import Link from 'next/link';
 
 // import {Layout} from '@layout';
@@ -15,3 +15,9 @@
 // export const getServerSideProps = find;
 
 // export default Test;
+
+const Test = () => (
+  <></>
+)
+
+export default Test;
