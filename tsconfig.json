@@ -45,9 +45,9 @@
       "@components": ["./imports/components"],
       "@layout": ["./imports/layout"],
       "@api_manager": ["imports/tools/api/api_manager.js"],
-      "@auth": ["./imports/components/auth"],
+      "@auth_components": ["./imports/components/auth"],
       "@api_types": ["./imports/tools/api/api_types.ts"],
-      "@auth_tools": ["./imports/tools/auth"]
+      "@auth_tools": ["./imports/tools/auth.ts"]
     },                                 /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     // "rootDirs": [],                              /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": [],                             /* List of folders to include type definitions from. */

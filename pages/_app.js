@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Layout from "@layout";
 
-import { checkLoginStatus } from '@auth_tools/handleAuth.ts';
+import { checkLoginStatus } from '@auth_tools';
 
 import "@imports/global.css";
 

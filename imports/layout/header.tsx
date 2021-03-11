@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import { UserInfosJSON } from '@api_types';
 
-import { handleLogout } from '@auth_tools/handleAuth.ts';
+import { handleLogout } from '@auth_tools';
 
 interface HeaderType {
   logged_in_status: string,
