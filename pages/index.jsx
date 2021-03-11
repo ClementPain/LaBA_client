@@ -1,11 +1,12 @@
 import React from 'react';
-import {Layout} from '@layout';
 
-export default function Home() {
+const Home = ({ loggedInStatus }) => {
   return (
-    <Layout>
+    <>
       <p>Hello</p>
-      <p>No</p>
-    </Layout>
-  )
+      <p>Status : { loggedInStatus }</p>
+    </>
+  );
 }
+
+export default Home;
