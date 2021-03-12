@@ -27,6 +27,7 @@ type checkLoggedStatusType = (
 
 export const checkLoginStatus: checkLoggedStatusType = (logged_in_status, setLoggedInStatus, setUser) => {
   const ifLoggedIn = (res: LoggedInJSON): void => {
+    console.log('ici', res);
     if (res.data.logged_in && logged_in_status === "NOT_LOGGED_IN") {
       setLoggedInStatus("LOGGED_IN");
       setUser(res.data.user);
@@ -37,7 +38,7 @@ export const checkLoginStatus: checkLoggedStatusType = (logged_in_status, setLog
   }
 
   find('logged_in', true, {
-    onSuccess: ifLoggedIn,
+    onSuccess: (res: LoggedInJSON) => ifLoggedIn(res),
     onError: (error: ErrorEvent) => console.log(error)
   });
 }
