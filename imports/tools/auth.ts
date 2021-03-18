@@ -1,13 +1,13 @@
 import Router from 'next/router';
 
-import { RegistrationJSON, UserInfosJSON, LoggedInJSON, LogoutJSON } from '@api_types';
+import { RegistrationJSON, UserResJSON, LoggedInJSON, LogoutJSON } from '@api_types';
 
 import { find, destroy } from '@api_manager';
 
 type handleSuccessfulAuthType = (
   res: RegistrationJSON,
   setLoggedInStatus: (logged_in_status: string) => void,
-  setUser: (user: UserInfosJSON | {}) => void
+  setUser: (user: UserResJSON | {}) => void
 ) => void;
 
 export const handleSuccessfulAuth: handleSuccessfulAuthType = (res, setLoggedInStatus, setUser) => {
@@ -21,13 +21,12 @@ export const handleSuccessfulAuth: handleSuccessfulAuthType = (res, setLoggedInS
 type checkLoggedStatusType = (
   logged_in_status: string,
   setLoggedInStatus: (logged_in_status: string) => void,
-  setUser: (user: UserInfosJSON | {}) => void
+  setUser: (user: UserResJSON | {}) => void
 ) => void;
 
 
 export const checkLoginStatus: checkLoggedStatusType = (logged_in_status, setLoggedInStatus, setUser) => {
   const ifLoggedIn = (res: LoggedInJSON): void => {
-    console.log('ici', res);
     if (res.data.logged_in && logged_in_status === "NOT_LOGGED_IN") {
       setLoggedInStatus("LOGGED_IN");
       setUser(res.data.user);
@@ -37,10 +36,10 @@ export const checkLoginStatus: checkLoggedStatusType = (logged_in_status, setLog
     }
   }
 
-  find('logged_in', true, {
-    onSuccess: (res: LoggedInJSON) => ifLoggedIn(res),
-    onError: (error: ErrorEvent) => console.log(error)
-  });
+  find('logged_in', true,
+    (res: LoggedInJSON) => ifLoggedIn(res),
+    (error: ErrorEvent) => console.log(error)
+  );
 }
 
 export const handleLogout: checkLoggedStatusType = (logged_in_status, setLoggedInStatus, setUser) => {
@@ -52,8 +51,8 @@ export const handleLogout: checkLoggedStatusType = (logged_in_status, setLoggedI
     }
   }
 
-  destroy('logout', true, {
-    onSuccess: (res: LogoutJSON) => ifLogout(res),
-    onError: (e: ErrorEvent) => console.log(e)
-  })
+  destroy('logout', true,
+    (res: LogoutJSON) => ifLogout(res),
+    (e: ErrorEvent) => console.log(e)
+  )
 }

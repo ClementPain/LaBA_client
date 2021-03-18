@@ -3,9 +3,12 @@ import React, { useState } from 'react';
 import { auth } from '@api_manager';
 import { RegistrationJSON } from '@api_types';
 
+import {
+  Container, Row, Col, Card, FormGroup, Button,
+} from 'react-bootstrap';
 import style from "./loginForm.module.css";
 
-export interface authTypes {
+interface authTypes {
   handleSuccessfulAuth: (res: RegistrationJSON) => void,
   logged_in_status: string
 }
@@ -18,8 +21,8 @@ const LoginForm: React.FC<authTypes> = ({ handleSuccessfulAuth, logged_in_status
   }
 
   const [user_infos, setUserInfos] = useState<LoginInfos>({
-    'email': '',
-    'password': ''
+    'email': "",
+    'password': ""
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,32 +36,39 @@ const LoginForm: React.FC<authTypes> = ({ handleSuccessfulAuth, logged_in_status
       'user': user_infos
     }
 
+    console.log(login_json)
+
     if (logged_in_status !== 'LOGGED_IN') auth('sessions', login_json, handleSuccessfulAuth)
   }
 
   return (
-  <div className = { style.main }>
-    <h1> Formulaire de connexion </h1>
-    <form onSubmit = { handleSubmit }>
-      <label htmlFor = 'username'> Email </label>
-      <input
-        type = "email" name = "email" placeholder = "email"
-        className = { style.input }
-        onChange = { handleChange }
-        required
-      />
+  <Container>
+    <Row>
+      <h1> Formulaire de connexion </h1>
+    </Row>
 
-      <label htmlFor = 'password'> Mot de passe </label>
-      <input
-        type = "password" name = "password" placeholder = "password"
-        className = { style.input }
-        onChange = { handleChange }
-        required
-      />
+    <Row>
+      <form onSubmit = { handleSubmit } autoComplete = 'off'>
+        <label htmlFor = 'username'> Email </label>
+        <input
+          type = "email" name = "email" placeholder = "email"
+          className = { style.input }
+          onChange = { handleChange }
+          required
+          />
 
-      <button type = "submit" className = { style.button }> Connexion </button>
-    </form>
-  </div>
+        <label htmlFor = 'password'> Mot de passe </label>
+        <input
+          type = "password" name = "password" placeholder = "password"
+          className = { style.input }
+          onChange = { handleChange }
+          required
+          />
+
+        <button type = "submit" className = { style.button }> Connexion </button>
+      </form>
+    </Row>
+  </Container>
   )
 }
 

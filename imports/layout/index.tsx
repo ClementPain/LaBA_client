@@ -1,13 +1,13 @@
 import React from "react";
 import Header from "./header";
 
-import { UserInfosJSON } from '@api_types';
+import { UserResJSON } from '@api_types';
 
 interface LayoutType {
   children: React.ReactNode,
   logged_in_status: string,
   setLoggedInStatus: (logged_in_status: string) => void,
-  setUser: (user: UserInfosJSON | {}) => void
+  setUser: (user: UserResJSON | {}) => void
 }
 
 const Layout: React.FC<LayoutType> = ({ children, logged_in_status, setLoggedInStatus, setUser }) => {

@@ -9,7 +9,7 @@
         "@imports": "./imports",
         "@components": "./imports/components",
         "@layout": "./imports/layout",
-        "@api_manager": "./imports/tools/api/api_manager.js",
+        "@api_manager": "./imports/tools/api/api_manager.ts",
         "@api_types": "./imports/tools/api/api_types.ts",
         "@auth_components": "./imports/components/auth",
         "@auth_tools": "./imports/tools/auth.ts"

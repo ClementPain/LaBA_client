@@ -2,14 +2,14 @@ import React from 'react';
 import Link from "next/link";
 import { useRouter } from 'next/router';
 
-import { UserInfosJSON } from '@api_types';
+import { UserResJSON } from '@api_types';
 
 import { handleLogout } from '@auth_tools';
 
 interface HeaderType {
   logged_in_status: string,
   setLoggedInStatus: (logged_in_status: string) => void,
-  setUser: (user: UserInfosJSON | {}) => void
+  setUser: (user: UserResJSON | {}) => void
 }
 
 const Header: React.FC<HeaderType> = ({ logged_in_status, setLoggedInStatus, setUser }) => {
