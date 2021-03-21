@@ -29,7 +29,7 @@ const RegistrationForm: React.FC<authTypes> = ({ handleSuccessfulAuth, logged_in
     last_name: "test"
   };
 
-  const [errors, setErrors] = useState<Array<string>>([]);
+  const [errors, setErrors] = useState<Array<string> | null>(null);
 
   interface errorObject {
     response: {
@@ -40,18 +40,19 @@ const RegistrationForm: React.FC<authTypes> = ({ handleSuccessfulAuth, logged_in
   }
   
   const handleErrors = (errorJSON: errorObject) => {
-    setErrors([]);
-
     const error_messages = errorJSON.response.data.error_message;
+    let error_array = [];
 
     for (let err of Object.keys(error_messages)) {
       let err_string = `${err} ${error_messages[err]}`;
-      setErrors([err_string, ...errors]);
+      error_array.push(err_string);
     }
+
+    setErrors(error_array);
   }
 
   const handleSubmit = (values: RegistrationInfos) => {
-    setErrors([]);
+    setErrors(null);
 
     const registration_json = {
       'user': {
@@ -75,11 +76,12 @@ const RegistrationForm: React.FC<authTypes> = ({ handleSuccessfulAuth, logged_in
       <h1>Formulaire de connexion</h1>
     </Row>
     
-    { errors && (
-      <Row>
-        <pre>{ errors }</pre>
-      </Row>
-    )}
+    { errors && errors.map( (err, i) => (
+        <Row key={ i }>
+          <pre>{ err }</pre>
+        </Row>
+      ))
+    }
 
     <Row>
       <FormikForm
