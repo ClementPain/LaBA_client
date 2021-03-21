@@ -1,33 +1,36 @@
 import React from 'react';
-import { useField } from 'formik';
+import { useField, FieldAttributes } from 'formik';
 import { FormGroup, Form } from 'react-bootstrap';
 
-interface MyTextInputType {
+type MyTextInputType = {
   label: string,
   type: string,
   name: string,
-  placeholder: string,
-  alert: JSON
-}
+  placeholder?: string,
+  maxlength?: number | undefined,
+  alert?: JSON
+} & FieldAttributes<{}>
 
 const MyTextInput: React.FC<MyTextInputType> = (props) => {
-  const [field, meta] = useField(props);
+  const [field, meta] = useField<{}>(props);
 
   const {
     label,
     type,
     name,
     placeholder,
+    maxlength,
     alert
   } = props;
 
   return (
     <FormGroup>
-      {label && <Form.Label htmlFor={name}>{label}</Form.Label>}
+      {label && <Form.Label htmlFor = { name }>{ label }</Form.Label>}
       <Form.Control
         className="text-input"
-        type={type}
-        placeholder={placeholder}
+        type = { type } 
+        placeholder = { placeholder }
+        maxLength = { maxlength }
         {...field}
       />
       {

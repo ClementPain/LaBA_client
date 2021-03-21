@@ -7,7 +7,7 @@ export interface UserResJSON {
 }
 
 export interface RegistrationJSON {
-  status: "created" | "unprocessable_entity" | 401,
+  status: 'created',
   logged_in: boolean,
   user: UserResJSON
 }
@@ -52,5 +52,5 @@ export type AuthCall = (
   endpoint: string,
   json: UserInfosAuth,
   onSuccess: (res: RegistrationJSON) => void,
-  onError?: (error: ErrorEvent) => void
+  onError?: (error: any) => void
 ) => void
