@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 import { auth } from '@api_manager';
 import { RegistrationJSON } from '@api_types';
 
-import {
-  Container, Row, Col, Card, FormGroup, Button,
-} from 'react-bootstrap';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import FormikForm from '@formik_form';
+import { MyTextInput } from '@formik_manager';
+
 import style from "./loginForm.module.css";
 
 interface authTypes {
@@ -14,31 +15,32 @@ interface authTypes {
 }
 
 const LoginForm: React.FC<authTypes> = ({ handleSuccessfulAuth, logged_in_status}) => {
-  
   interface LoginInfos {
-    'email': string,
-    'password': string
+    email: string,
+    password: string
   }
 
-  const [user_infos, setUserInfos] = useState<LoginInfos>({
-    'email': "",
-    'password': ""
-  })
+  const initial_values: LoginInfos = {
+    email: "",
+    password: ""
+  };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInfos({ ...user_infos, [e.target.name]: e.target.value })
+  const [errors, setErrors] = useState(null);
+
+  const handleErrors = (error: any) => {
+    setErrors(error.response.data.error_message)
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleSubmit = (values: LoginInfos) => {
+    setErrors(null);
+    
     const login_json = {
-      'user': user_infos
+      'user': values
     }
 
-    console.log(login_json)
-
-    if (logged_in_status !== 'LOGGED_IN') auth('sessions', login_json, handleSuccessfulAuth)
+    if (logged_in_status !== 'LOGGED_IN') {
+      auth('sessions', login_json, handleSuccessfulAuth, handleErrors)
+    } 
   }
 
   return (
@@ -46,27 +48,32 @@ const LoginForm: React.FC<authTypes> = ({ handleSuccessfulAuth, logged_in_status
     <Row>
       <h1> Formulaire de connexion </h1>
     </Row>
-
+    
+    { errors && (
+      <Row>
+        <pre>{ errors }</pre>
+      </Row>
+    )}
+    
     <Row>
-      <form onSubmit = { handleSubmit } autoComplete = 'off'>
-        <label htmlFor = 'username'> Email </label>
-        <input
-          type = "email" name = "email" placeholder = "email"
-          className = { style.input }
-          onChange = { handleChange }
-          required
-          />
+      <FormikForm
+        initialValues = { initial_values }
+        handleSubmit = { handleSubmit }
+      >
+        <MyTextInput
+          name="email" label="Email"
+          type='email'
+          placeholder="Renseignez votre email..."
+          maxlength={80}
+        />
 
-        <label htmlFor = 'password'> Mot de passe </label>
-        <input
-          type = "password" name = "password" placeholder = "password"
-          className = { style.input }
-          onChange = { handleChange }
-          required
-          />
-
-        <button type = "submit" className = { style.button }> Connexion </button>
-      </form>
+        <MyTextInput
+          name="password" label="Mot de passe"
+          type='password'
+          placeholder="Renseignez votre mot de passe..."
+          maxlength={40}
+        />
+      </FormikForm>
     </Row>
   </Container>
   )

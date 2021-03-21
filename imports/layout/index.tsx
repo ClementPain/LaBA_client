@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./header";
+import Navbar from "./navbar";
 
 import { UserResJSON } from '@api_types';
 
@@ -13,7 +13,7 @@ interface LayoutType {
 const Layout: React.FC<LayoutType> = ({ children, logged_in_status, setLoggedInStatus, setUser }) => {
   return (
     <div>
-      <Header
+      <Navbar
         logged_in_status = { logged_in_status }
         setLoggedInStatus = { setLoggedInStatus }
         setUser = { setUser }

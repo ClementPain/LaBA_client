@@ -3,92 +3,124 @@ import React, { useState } from 'react';
 import { auth } from '@api_manager';
 import { RegistrationJSON } from '@api_types';
 
-export interface authTypes {
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import FormikForm from '@formik_form';
+import { MyTextInput } from '@formik_manager';
+
+interface authTypes {
   handleSuccessfulAuth: (res: RegistrationJSON) => void,
   logged_in_status: string
 }
 
 const RegistrationForm: React.FC<authTypes> = ({ handleSuccessfulAuth, logged_in_status }) => {
   interface RegistrationInfos {
-    'email': string,
-    'password': string,
-    'password_confirmation': string,
-    'role': "villager"
+    email: string,
+    password: string,
+    password_confirmation: string,
+    first_name: string,
+    last_name: string
   }
 
-  interface ProfileInfos {
-    'first_name': string,
-    'last_name': string
-  }
+  const initial_values: RegistrationInfos = {
+    email: "test56@test.fr",
+    password: "testfr",
+    password_confirmation: "testfr",
+    first_name: "test",
+    last_name: "test"
+  };
 
-  const [user_infos, setUserInfos] = useState<RegistrationInfos>({
-    'email': "",
-    'password': "",
-    'password_confirmation': "",
-    'role': "villager"
-  })
+  const [errors, setErrors] = useState<Array<string>>([]);
 
-  const [profile_infos, setProfileInfos] = useState<ProfileInfos>({
-    'first_name': "",
-    'last_name': ""
-  })
-
-  const handleChangeUser = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInfos( { ...user_infos, [e.target.name]: e.target.value } );
-  }
-
-  const handleChangeProfile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setProfileInfos( { ...profile_infos, [e.target.name]: e.target.value } );
+  interface errorObject {
+    response: {
+      data: {
+        error_message: Record<string, string>
+      }
+    }
   }
   
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleErrors = (errorJSON: errorObject) => {
+    const error_messages = errorJSON.response.data.error_message;
+
+    for (let err of Object.keys(error_messages)) {
+      let err_string = `${err} ${error_messages[err]}`
+      setErrors([err_string, ...errors])
+    }
+  }
+
+  const handleSubmit = (values: RegistrationInfos) => {
+    setErrors([]);
 
     const registration_json = {
-      'user': user_infos,
-      'profile': profile_infos
+      'user': {
+        email: values.email,
+        password: values.password,
+        password_confirmation: values.password_confirmation,
+        role: 'villager'
+      },
+      'profile': {
+        first_name: values.first_name,
+        last_name: values.last_name
+      }
     }
 
-    if (logged_in_status !== 'LOGGED_IN') auth('registrations', registration_json, handleSuccessfulAuth);
+    if (logged_in_status !== 'LOGGED_IN') auth('registrations', registration_json, handleSuccessfulAuth, handleErrors);
   }
 
   return (
-    <div>
+  <Container>
+    <Row>
       <h1>Formulaire de connexion</h1>
-      <form onSubmit = { handleSubmit } autoComplete = 'off'>
-        <input
-          type="email" name="email" placeholder="Email"
-          onChange = { handleChangeUser }
-          required
+    </Row>
+    
+    { errors && (
+      <Row>
+        <pre>{ errors }</pre>
+      </Row>
+    )}
+
+    <Row>
+      <FormikForm
+        initialValues = { initial_values }
+        handleSubmit = { handleSubmit }
+      >
+        <MyTextInput
+          name="email" label="Email"
+          type='email'
+          placeholder="Renseignez votre email..."
+          maxlength={80}
         />
 
-        <input
-          type="password" name="password" placeholder="Password"
-          onChange={ handleChangeUser }
-          required
+        <MyTextInput
+          name="password" label="Mot de passe"
+          type='password'
+          placeholder="Renseignez votre mot de passe..."
+          maxlength={40}
         />
 
-        <input
-          type="password" name="password_confirmation" placeholder="Password Confirmation"
-          onChange={ handleChangeUser }
-          required
+        <MyTextInput
+          name="password_confirmation" label="Confirmation de mot de passe"
+          type='password'
+          placeholder="Confirmez votre mot de passe..."
+          maxlength={40}
         />
 
-        <input
-          type="text" name="first_name" placeholder="First Name"
-          onChange={ handleChangeProfile }
-          required
+        <MyTextInput
+          name="first_name" label="Prénom"
+          type='text'
+          placeholder="Indiquez votre prénom..."
+          maxlength={40}
         />
 
-        <input
-          type="text" name="last_name" placeholder="Last Name"
-          onChange={ handleChangeProfile }
-          required
+        <MyTextInput
+          name="last_name" label="Nom"
+          type='text'
+          placeholder="Indiquez votre nom..."
+          maxlength={40}
         />
-
-        <button type="submit">Register</button>
-      </form>
-    </div>
+      </FormikForm>
+    </Row>
+  </Container>
   )
 }
 
