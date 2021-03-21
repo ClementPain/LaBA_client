@@ -9,7 +9,7 @@ type MyTextInputType = {
   placeholder?: string,
   maxlength?: number | undefined,
   alert?: JSON
-} & FieldAttributes<string>
+} & FieldAttributes<any>
 
 const MyTextInput: React.FC<MyTextInputType> = (props) => {
   const [field, meta] = useField(props);
