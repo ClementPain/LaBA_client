@@ -6,12 +6,12 @@ interface formErrorsType {
   last_name?: string
 }
 
-type validateType = (values: formErrorsType) => formErrorsType;
+type validateType = (values: formErrorsType, initial_values: formErrorsType) => formErrorsType;
 
-const validate: validateType = (values) => {
+const validate: validateType = (values, initial_values) => {
   const formErrors: formErrorsType = {};
 
-  if (values['email']) {
+  if (initial_values['email']) {
     if (!values.email) {
       formErrors.email = "Champ obligatoire";
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
@@ -19,7 +19,7 @@ const validate: validateType = (values) => {
     }
   }
 
-  if (values['password']) {
+  if (initial_values['password']) {
     if (!values.password) {
       formErrors.password = "Champ obligatoire";
     } else if (values.password.length < 6) {
@@ -27,7 +27,7 @@ const validate: validateType = (values) => {
     }
   }
 
-  if (values['password_confirmation']) {
+  if (initial_values['password_confirmation']) {
     if (values.password && !values.password_confirmation) {
       formErrors.password_confirmation = "Champ obligatoire";
     } else if (values.password_confirmation && values.password_confirmation.length < 6) {
@@ -39,7 +39,7 @@ const validate: validateType = (values) => {
     }
   }
 
-  if (values['first_name']) {
+  if (initial_values['first_name']) {
     if (!values.first_name) {
       formErrors.first_name = "Champ obligatoire"
     } else if (values.first_name.length < 2) {
@@ -47,7 +47,7 @@ const validate: validateType = (values) => {
     }
   }
 
-  if (values['last_name']) {
+  if (initial_values['last_name']) {
     if (!values.last_name) {
       formErrors.last_name = "Champ obligatoire"
     } else if (values.last_name.length < 2) {

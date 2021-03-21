@@ -6,10 +6,7 @@ import { handleSuccessfulAuth } from '@auth_tools';
 
 const Login = ({ setLoggedInStatus, setUser, logged_in_status }) => (
   <LoginForm
-    handleSuccessfulAuth = { (res) => {
-      handleSuccessfulAuth(res, setLoggedInStatus, setUser);
-      console.log(res)
-    }}
+    handleSuccessfulAuth = { (res) => handleSuccessfulAuth(res, setLoggedInStatus, setUser) }
     logged_in_status = { logged_in_status }
   />
 );

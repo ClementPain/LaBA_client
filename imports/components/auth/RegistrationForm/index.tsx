@@ -40,11 +40,13 @@ const RegistrationForm: React.FC<authTypes> = ({ handleSuccessfulAuth, logged_in
   }
   
   const handleErrors = (errorJSON: errorObject) => {
+    setErrors([]);
+
     const error_messages = errorJSON.response.data.error_message;
 
     for (let err of Object.keys(error_messages)) {
-      let err_string = `${err} ${error_messages[err]}`
-      setErrors([err_string, ...errors])
+      let err_string = `${err} ${error_messages[err]}`;
+      setErrors([err_string, ...errors]);
     }
   }
 

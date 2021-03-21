@@ -4,15 +4,14 @@ import { Button, FormGroup } from 'react-bootstrap';
 import validate from './validate';
 
 interface FormikFormType {
-  initialValues: Object,
-  // validate: (values:any) => Object,
+  initial_values: Object,
   handleSubmit: (values:any) => void
 }
 
-const FormikForm: React.FC<FormikFormType> = ({ initialValues, handleSubmit, children }) => (
+const FormikForm: React.FC<FormikFormType> = ({ initial_values, handleSubmit, children }) => (
   <Formik
-    initialValues = { initialValues }
-    validate = { validate }
+    initialValues = { initial_values }
+    validate = { (values) => validate(values, initial_values) }
     onSubmit = { (values: Object, { setSubmitting }) => {
       setSubmitting(true);
       handleSubmit(values);
