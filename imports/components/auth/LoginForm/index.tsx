@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { auth } from '@api_manager';
 import { RegistrationJSON } from '@api_types';
 
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import FormikForm from '@formik_form';
 import { MyTextInput } from '@formik_manager';
 
@@ -27,9 +27,7 @@ const LoginForm: React.FC<authTypes> = ({ handleSuccessfulAuth, logged_in_status
 
   const [errors, setErrors] = useState(null);
 
-  const handleErrors = (error: any) => {
-    setErrors(error.response.data.error_message)
-  }
+  const handleErrors = (error: any) => setErrors(error.response.data.error_message);
 
   const handleSubmit = (values: LoginInfos) => {
     setErrors(null);
@@ -38,9 +36,7 @@ const LoginForm: React.FC<authTypes> = ({ handleSuccessfulAuth, logged_in_status
       'user': values
     }
 
-    if (logged_in_status !== 'LOGGED_IN') {
-      auth('sessions', login_json, handleSuccessfulAuth, handleErrors)
-    } 
+    if (logged_in_status !== 'LOGGED_IN') auth('sessions', login_json, handleSuccessfulAuth, handleErrors)
   }
 
   return (

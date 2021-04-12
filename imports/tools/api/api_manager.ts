@@ -26,6 +26,16 @@ export const find: APICallwithoutJSON = async (
     .catch(error => onError(error))
 }
 
+export const find_with_json: APICallwithJSON = async (
+  endpoint, withCredentials, json,
+  onSuccess = basicRes,
+  onError = basicRes) => {
+
+  await axios.get(`${url}/${endpoint}`, { params: json, withCredentials: withCredentials })
+    .then(res => onSuccess(res))
+    .catch(error => onError(error))
+}
+
 export const post: APICallwithJSON = async (endpoint, withCredentials, json,
   onSuccess = basicRes,
   onError = basicRes) => {

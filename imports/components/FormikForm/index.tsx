@@ -5,14 +5,13 @@ import validate from './validate';
 
 interface FormikFormType {
   initialValues: Object,
-  // validate: (values:any) => Object,
   handleSubmit: (values:any) => void
 }
 
 const FormikForm: React.FC<FormikFormType> = ({ initialValues, handleSubmit, children }) => (
   <Formik
     initialValues = { initialValues }
-    validate = { validate }
+    validate = { (values) => validate(values, initialValues) }
     onSubmit = { (values: Object, { setSubmitting }) => {
       setSubmitting(true);
       handleSubmit(values);
