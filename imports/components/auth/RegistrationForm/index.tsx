@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { auth } from '@api_manager';
 import { RegistrationJSON } from '@api_types';
 
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import FormikForm from '@formik_form';
 import { MyTextInput } from '@formik_manager';
 
@@ -22,11 +22,11 @@ const RegistrationForm: React.FC<authTypes> = ({ handleSuccessfulAuth, logged_in
   }
 
   const initial_values: RegistrationInfos = {
-    email: "test56@test.fr",
-    password: "testfr",
-    password_confirmation: "testfr",
-    first_name: "test",
-    last_name: "test"
+    email: "",
+    password: "",
+    password_confirmation: "",
+    first_name: "",
+    last_name: ""
   };
 
   const [errors, setErrors] = useState<Array<string> | null>(null);

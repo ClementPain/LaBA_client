@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { auth } from '@api_manager';
 import { RegistrationJSON } from '@api_types';
 
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import FormikForm from '@formik_form';
 import { MyTextInput } from '@formik_manager';
 

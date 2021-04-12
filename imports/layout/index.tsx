@@ -1,5 +1,5 @@
-import React from "react";
-import Navbar from "./navbar";
+import React from 'react';
+import Navbar from './navbar';
 
 import { UserResJSON } from '@api_types';
 
@@ -10,17 +10,15 @@ interface LayoutType {
   setUser: (user: UserResJSON | {}) => void
 }
 
-const Layout: React.FC<LayoutType> = ({ children, logged_in_status, setLoggedInStatus, setUser }) => {
-  return (
-    <div>
-      <Navbar
-        logged_in_status = { logged_in_status }
-        setLoggedInStatus = { setLoggedInStatus }
-        setUser = { setUser }
-      />
-      {children}
-    </div>
-  )
-}
+const Layout: React.FC<LayoutType> = ({ children, logged_in_status, setLoggedInStatus, setUser }) => (
+  <div>
+    <Navbar
+      logged_in_status = { logged_in_status }
+      setLoggedInStatus = { setLoggedInStatus }
+      setUser = { setUser }
+    />
+    {children}
+  </div>
+)
 
 export default Layout;

@@ -83,7 +83,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/test/index.jsx", "imports/tools/api/api_manager.ts", "pages/index.jsx", "imports/components/auth/RegistrationForm/index.tsx", "pages/registration.jsx", "pages/_app.jsx"  ],
+, "pages/test/index.jsx", "imports/tools/api/api_manager.ts", "pages/index.jsx", "imports/components/auth/RegistrationForm/index.tsx", "pages/registration.jsx", "pages/_app.jsx", "imports/components/auth/TownHallRegistrationForm/index.tsx"  ],
   "exclude": [
     "node_modules"
   ]

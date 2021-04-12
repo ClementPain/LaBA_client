@@ -1,6 +1,6 @@
 import React from 'react';
 import { useField, FieldAttributes } from 'formik';
-import { FormGroup, Form, FormControl } from 'react-bootstrap';
+import { FormGroup, Form } from 'react-bootstrap';
 
 type MyTextInputType = {
   label: string,
